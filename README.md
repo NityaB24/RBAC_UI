@@ -125,11 +125,11 @@ src/
 - **Notifications**: Notify users about new tasks or updates via email or in-app alerts.  
 
 ## Screenshots  
-- **Admin Dashboard**: ![Admin Dashboard](<dashboard.png>)  
-- **User Dashboard**: ![User Dashboard](<user_dashboard.png>)  
-- **Role Management**: ![Role Dashboard](<roles.png>)  
+- **Admin Dashboard**: ![Admin Dashboard](<dashboard-1.png>)  
+- **Role Management**: ![Role Dashboard](<role.png>)  
 - **Task Management**: ![Task Dashboard](<task.png>)  
-- **User Management**: ![User Dashboard](<user.png>) 
+- **User Management**: ![User Dashboard](<user-1.png>) 
+- **User Dashboard**: ![User Dashboard](<user_dashboard.png>)  
 
 ## License  
 This project is licensed under the MIT License.  
