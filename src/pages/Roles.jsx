@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useRBAC } from "../contexts/RBACContext";
 import Modal from "../components/Modal";
+import Header from "../layouts/Header";
 
 const Roles = () => {
   const { roles, addRole, updateRole, deleteRole } = useRBAC();
@@ -71,6 +72,8 @@ const Roles = () => {
   });
 
   return (
+    <>
+    <Header/>
     <div className="p-4 sm:p-6 md:p-8 bg-[#c5c3d5] min-h-screen">
       <h1 className="text-2xl md:text-3xl font-semibold text-[#262b34] mb-6 md:mb-8">
         Roles Management
@@ -214,6 +217,7 @@ const Roles = () => {
         </Modal>
       )}
     </div>
+    </>
   );
 };
 

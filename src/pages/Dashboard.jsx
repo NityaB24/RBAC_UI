@@ -1,9 +1,11 @@
 import React from "react";
-
+import Header from "../layouts/Header";
 const Dashboard = () => {
 
 
   return (
+    <>
+    <Header/>
     <div className="bg-[#c5c3d5] min-h-screen flex flex-col items-center py-12 px-8">
       <div className="text-center mb-12 animate__animated animate__fadeIn animate__delay-1s">
         <h1 className="text-5xl text-[#262b34] font-extrabold mb-4">
@@ -52,6 +54,7 @@ const Dashboard = () => {
         <p>&copy; 2024 RBAC Dashboard. All Rights Reserved.</p>
       </footer>
     </div>
+    </>
   );
 };
 
