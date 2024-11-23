@@ -12,15 +12,20 @@ import Alltasks from "./pages/Alltasks";
 import Loader from "./LoadingPage/Logo/Loader";
 
 const App = () => {
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(
+    !sessionStorage.getItem("loaderDisplayed")
+  );
 
   useEffect(() => {
-    const timer = setTimeout(() => {
-      setLoading(false);
-    }, 2200);
+    if (loading) {
+      const timer = setTimeout(() => {
+        setLoading(false);
+        sessionStorage.setItem("loaderDisplayed", "true"); 
+      }, 2200);
 
-    return () => clearTimeout(timer);
-  }, []);
+      return () => clearTimeout(timer);
+    }
+  }, [loading]);
 
   if (loading) {
     return <Loader />;
@@ -34,49 +39,37 @@ const App = () => {
         <Route
           path="/user-dashboard"
           element={
-            <PrivateRoute requiredRole="user">
-              <UserDashboard />
-            </PrivateRoute>
+            <PrivateRoute requiredRole="user" element={<UserDashboard />}/>
           }
         />
         <Route
           path="/admin-dashboard"
           element={
-            <PrivateRoute requiredRole="admin">
-              <AdminDashboard />
-            </PrivateRoute>
+            <PrivateRoute requiredRole="admin" element={<AdminDashboard />}/>
           }
         />
         <Route
           path="/users"
           element={
-            <PrivateRoute requiredRole="admin">
-              <Users />
-            </PrivateRoute>
+            <PrivateRoute requiredRole="admin" element={<Users />}/>
           }
         />
         <Route
           path="/roles"
           element={
-            <PrivateRoute requiredRole="admin">
-              <Roles />
-            </PrivateRoute>
+            <PrivateRoute requiredRole="admin" element={<Roles />}/>
           }
         />
         <Route
           path="/tasks/:userId"
           element={
-            <PrivateRoute requiredRole="admin">
-              <Tasks />
-            </PrivateRoute>
+            <PrivateRoute requiredRole="admin" element={<Tasks />}/>
           }
         />
         <Route
           path="/tasks"
           element={
-            <PrivateRoute requiredRole="admin">
-              <Alltasks />
-            </PrivateRoute>
+            <PrivateRoute requiredRole="admin" element={<Alltasks />}/>
           }
         />
       </Routes>
