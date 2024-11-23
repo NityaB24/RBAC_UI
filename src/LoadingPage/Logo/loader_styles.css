@@ -1,0 +1,28 @@
+.loader-wrap {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  /* background-color: #afafc8; */
+  z-index: 1000;
+}
+
+
+#drawing{
+  position: absolute;
+  top: 0;
+  width: 100vw;
+  height: 110vh;
+}
+
+@media (max-width: 767px) {
+  .loader-wrap svg {
+    width: 200vw;
+    /* margin-left: -50vw; */
+  }
+}
+

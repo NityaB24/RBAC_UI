@@ -1,0 +1,76 @@
+
+#logo1 {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    transition: fill 1s ease-in-out, transform 0.8s ease-in-out;
+}
+
+#logo1.complete {
+    fill: #262b34; 
+    transform: translate(-50%, -50%) scale(1.3);
+}
+
+#logo1.complete path {
+    stroke: none;
+}
+
+#logo1 path:nth-child(1) {
+    stroke-dasharray: 1200;
+    stroke-dashoffset: 1200;
+    animation: draw 5s ease forwards; 
+}
+
+#logo1 path:nth-child(2) {
+    stroke-dasharray: 1033;
+    stroke-dashoffset: 1033;
+    animation: draw 5s ease forwards;
+}
+
+#logo1 path:nth-child(3) {
+    stroke-dasharray: 1054;
+    stroke-dashoffset: 1054;
+    animation: draw 5s ease forwards;
+}
+
+#logo1 path:nth-child(4) {
+    stroke-dasharray: 1033;
+    stroke-dashoffset: 1033;
+    animation: draw 5s ease forwards;
+}
+
+
+/* Keyframe animations */
+@keyframes draw {
+    to {
+        stroke-dashoffset: 0;
+    }
+}
+
+/* @keyframes fill {
+    from {
+        fill: transparent;
+    }
+    to {
+        fill: #cdea66 ; 
+    }
+} */
+
+@keyframes moveOut {
+    from {
+        transform: translate(-50%, -50%);
+    }
+    to {
+        transform: translate(-50%, -550%);
+    }
+}
+
+@keyframes scaleUp {
+    0% {
+        transform: translate(-50%, -50%) scale(1); /* Initial scale */
+    }
+    100% {
+        transform: translate(-50%, -50%) scale(2); /* Grows and moves up */
+    }
+}

@@ -99,50 +99,49 @@ const Roles = () => {
       >
         Add Role
       </button>
-
       <div className="bg-[#1f2329] p-4 md:p-6 rounded-xl shadow-xl">
-        {filteredRoles.length > 0 ? (
-          <div className="grid gap-4 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 bg-inherit">
-            {filteredRoles.map((role) => (
-              <div
-                key={role.id}
-                className="p-3 bg-[#333a42] rounded-lg flex justify-between items-center shadow border-[#c5c3d5]"
-              >
-                <div className="bg-inherit">
-                  <h2 className="text-base md:text-lg font-semibold text-[#c5c3d5] bg-inherit">
-                    {role.name}
-                  </h2>
-                  <p className="text-sm text-[#9896a1] bg-inherit">
-                    Permissions: {role.permissions.join(", ")}
-                  </p>
+          {filteredRoles.length > 0 ? (
+            <div className="grid gap-4 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 bg-inherit">
+              {filteredRoles.map((role) => (
+                <div
+                  key={role.id}
+                  className="p-3 bg-[#333a42] rounded-lg flex justify-between items-center shadow transition-all duration-300 ease-in-out transform hover:scale-105 hover:shadow-xl"
+                >
+                  <div className="bg-inherit">
+                    <h2 className="text-base md:text-lg font-semibold text-[#c5c3d5] bg-inherit">
+                      {role.name}
+                    </h2>
+                    <p className="text-sm text-[#9896a1] bg-inherit">
+                      Permissions: {role.permissions.join(", ")}
+                    </p>
+                  </div>
+                  <div className="flex space-x-2 md:space-x-3 bg-inherit">
+                    <button
+                      className="text-[#c5c3d5] hover:text-[#9896a1] transition-colors bg-inherit"
+                      onClick={() => {
+                        setIsEditing(true);
+                        setRole(role);
+                        setModalOpen(true);
+                      }}
+                    >
+                      Edit
+                    </button>
+                    <button
+                      className="text-red-500 hover:text-red-400 transition-colors bg-inherit"
+                      onClick={() => deleteRole(role.id)}
+                    >
+                      Delete
+                    </button>
+                  </div>
                 </div>
-                <div className="flex space-x-2 md:space-x-3 bg-inherit">
-                  <button
-                    className="text-[#c5c3d5] hover:text-[#9896a1] transition-colors bg-inherit"
-                    onClick={() => {
-                      setIsEditing(true);
-                      setRole(role);
-                      setModalOpen(true);
-                    }}
-                  >
-                    Edit
-                  </button>
-                  <button
-                    className="text-red-500 hover:text-red-400 transition-colors bg-inherit"
-                    onClick={() => deleteRole(role.id)}
-                  >
-                    Delete
-                  </button>
-                </div>
-              </div>
-            ))}
-          </div>
-        ) : (
-          <p className="text-[#c5c3d5] text-lg text-center bg-inherit">
-            No roles found
-          </p>
-        )}
-      </div>
+              ))}
+            </div>
+          ) : (
+            <p className="text-[#c5c3d5] text-lg text-center bg-inherit">
+              No roles found
+            </p>
+          )}
+        </div>
 
       {isModalOpen && (
         <Modal onClose={() => setModalOpen(false)}>

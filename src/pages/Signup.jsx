@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { motion } from "framer-motion";
 
 const Signup = () => {
   const [signupData, setSignupData] = useState({ name: "", password: "" });
@@ -47,11 +48,24 @@ const Signup = () => {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-[#c5c3d5]">
-      <div className="bg-secondary p-8 rounded-lg shadow-lg max-w-sm w-full">
-        <h1 className="text-3xl font-semibold text-center mb-6 text-primary">Signup</h1>
+    <motion.div
+      className="min-h-screen flex items-center justify-center bg-[#c5c3d5]"
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+      transition={{ duration: 0.5 }}
+    >
+      <motion.div
+        className="bg-[#262b34] p-8 rounded-lg shadow-lg max-w-sm w-full"
+        initial={{ scale: 0.9 }}
+        animate={{ scale: 1 }}
+        transition={{ duration: 0.4, type: "spring" }}
+      >
+        <h1 className="text-3xl font-semibold text-center mb-6 text-primary">
+          Signup
+        </h1>
 
-        <div className="space-y-4">
+        <div className="space-y-6">
           {/* Username Input */}
           <div>
             <label className="block text-primary">Username</label>
@@ -59,7 +73,9 @@ const Signup = () => {
               type="text"
               value={signupData.name}
               onChange={(e) => setSignupData({ ...signupData, name: e.target.value })}
-              className={`w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500 ${errors.name ? "border-red-500" : ""}`}
+              className={`w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500 ${
+                errors.name ? "border-red-500" : ""
+              }`}
               placeholder="Enter your username"
             />
             {errors.name && <p className="text-red-500 text-sm">{errors.name}</p>}
@@ -72,23 +88,32 @@ const Signup = () => {
               type="password"
               value={signupData.password}
               onChange={(e) => setSignupData({ ...signupData, password: e.target.value })}
-              className={`w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500 ${errors.password ? "border-red-500" : ""}`}
+              className={`w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500 ${
+                errors.password ? "border-red-500" : ""
+              }`}
               placeholder="Enter your password"
             />
             {errors.password && <p className="text-red-500 text-sm">{errors.password}</p>}
           </div>
 
           {/* Signup Button */}
-          <button
+          <motion.button
             onClick={handleSignup}
             className="w-full bg-indigo-600 text-white py-3 rounded-md mt-6 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
           >
             Signup
-          </button>
+          </motion.button>
         </div>
 
         {/* Link to Login */}
-        <div className="mt-6 text-center">
+        <motion.div
+          className="mt-6 text-center"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 0.2 }}
+        >
           <p className="text-sm text-primary">
             Already have an account?{" "}
             <button
@@ -98,9 +123,9 @@ const Signup = () => {
               Login here
             </button>
           </p>
-        </div>
-      </div>
-    </div>
+        </motion.div>
+      </motion.div>
+    </motion.div>
   );
 };
 
