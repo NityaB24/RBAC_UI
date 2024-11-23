@@ -1,116 +1,135 @@
+# Role-Based Access Control (RBAC) System  
 
-# Role-Based Access Control (RBAC) System
+A fully functional and responsive Role-Based Access Control (RBAC) system built with React.js, providing secure and intuitive interfaces for administrators and users. This system includes login and signup functionalities, task assignment, and robust management of users, roles, and permissions.  
 
-A fully functional and responsive Role-Based Access Control (RBAC) system built with React.js, providing a secure and intuitive interface for administrators to manage users, roles, and permissions. The application uses localStorage to persist data, ensuring continuity across sessions.
+## Live Demo  
+[RBAC](https://rbac-ui-12.vercel.app)  
 
-## Live Demo
-[RBAC](https://rbac-ui-12.vercel.app)
+## Features  
 
-## Features
+### **Authentication**  
+- **Admin Login**: Pre-set admin credentials to secure access to administrative functionalities.  
+  - **Username**: `admin`  
+  - **Password**: `admin`  
+- **User Login**: Users must first sign up with valid credentials and then log in.  
+- **Signup Functionality**: Users can register their accounts using a simple signup form.  
 
-### User Management
-- **Add Users**: Create new users by specifying their name, assigning a role, and setting their status (Active/Inactive).
-- **Edit Users**: Update existing user details, including role and status.
-- **Delete Users**: Remove users from the system.
-- **Search Users**: Quickly find users by their name or other attributes.
+### **Admin Functionalities**  
+- **User Management**:  
+  - Add users by specifying their name, role, and status.  
+  - Edit user details, including their role and status.  
+  - Delete users from the system.  
+  - Assign tasks to users and manage task details.  
+  - Search users using the search bar for quick filtering.  
 
-### Role Management
-- **Add Roles**: Create roles with unique names and assign permissions (e.g., Read, Write, Delete).
-- **Edit Roles**: Update role names or modify assigned permissions.
-- **Delete Roles**: Remove roles from the system.
-- **Search Roles**: Find roles based on their name or associated permissions.
+- **Role Management**:  
+  - Add roles with specific permissions (e.g., Read, Write, Delete).  
+  - Edit role details, including permissions.  
+  - Delete roles as needed.  
+  - Search and filter roles by name or associated permissions.  
 
-### Dashboard
-- Overview of users and roles with quick actions to manage them.
-- Intuitive navigation for seamless interaction with the system.
+- **Task Management**:  
+  - Create and assign tasks to users.  
+  - Edit task details, such as descriptions and deadlines.  
+  - Delete tasks.  
+  - Filter tasks based on criteria like user, status, or priority.  
 
-### Persistent Storage
-- **LocalStorage Integration**: Users and roles data is stored in localStorage, ensuring that data is retained even after the browser is refreshed.
+### **User Functionalities**  
+- **View Tasks**:  
+  - Users can view the tasks assigned to them by the admin.  
+- **Role Information**:  
+  - Users can see their roles and permissions assigned by the admin.  
 
-### Responsiveness
-- Optimized for all devices, including desktops, tablets, and smartphones, ensuring a smooth user experience across screen sizes.
+### **Dashboard**  
+- Unified interface for managing users, roles, and tasks.  
+- Quick actions to create, edit, delete, and filter records.  
+- Responsive layout ensuring seamless navigation on all devices.  
 
-## Technologies Used
-- **Frontend**: React.js, Tailwind CSS (optional styling framework for responsive design)
-- **State Management**: React Context or useState (for simplicity)
-- **Storage**: localStorage (for persistence)
+### **Persistent Storage**  
+- **LocalStorage Integration**: Users, roles, and tasks are stored in localStorage, allowing data to persist across browser sessions.  
 
-## Installation and Setup
+### **Responsiveness**  
+- Optimized for desktops, tablets, and smartphones for a consistent user experience across screen sizes.  
 
-1. **Clone the Repository**
-   ```bash
-   git clone https://github.com/NityaB24/RBAC_UI.git
-   cd RBAC_UI
-   ```
+## Technologies Used  
+- **Frontend**: React.js, Tailwind CSS (optional styling framework for responsive design)  
+- **State Management**: React Context API and `useState`  
+- **Storage**: LocalStorage  
 
-2. **Install Dependencies**
-   Ensure you have Node.js and npm installed. Then, run:
-   ```bash
-   npm install
-   ```
+## Installation and Setup  
 
-3. **Start the Development Server**
-   ```bash
-   npm run dev
-   ```
-   This will start the application on `http://localhost:3000`.
+1. **Clone the Repository**  
+   ```bash  
+   git clone https://github.com/NityaB24/RBAC_UI.git  
+   cd RBAC_UI  
+   ```  
 
-4. **Build for Production**
-   To build the app for production:
-   ```bash
-   npm run build
-   ```
+2. **Install Dependencies**  
+   Ensure you have Node.js and npm installed. Then, run:  
+   ```bash  
+   npm install  
+   ```  
 
-## Usage
+3. **Start the Development Server**  
+   ```bash  
+   npm start  
+   ```  
+   This will start the application on `http://localhost:3000`.  
 
-### Adding Users
-1. Navigate to the "Users" section from the sidebar/dashboard.
-2. Click the "Add User" button.
-3. Fill out the form with the user's name, role, and status, then click "Submit."
+4. **Build for Production**  
+   To build the app for production:  
+   ```bash  
+   npm run build  
+   ```  
 
-### Managing Users
-- **Edit**: Use the "Edit" button next to a user's name to modify their details.
-- **Delete**: Click the "Delete" button to remove a user.
-- **Search**: Use the search bar to filter the list of users.
+## Usage  
 
-### Adding Roles
-1. Go to the "Roles" section.
-2. Click the "Add Role" button.
-3. Enter the role's name and assign permissions (e.g., Read, Write, Delete), then save.
+### **Admin Actions**  
+1. **Login**: Use the admin credentials provided above.  
+2. **User Management**:  
+   - Navigate to the "Users" section to add, edit, delete, or search for users.  
+   - Assign roles and tasks to users.  
+3. **Role Management**:  
+   - Manage roles via the "Roles" section.  
+   - Create new roles or modify existing ones.  
+4. **Task Management**:  
+   - Navigate to "Tasks" to create, assign, or delete tasks.  
+   - Use filters to organize and prioritize tasks.  
 
-### Managing Roles
-- **Edit**: Modify role names or permissions by clicking "Edit."
-- **Delete**: Remove a role using the "Delete" button.
-- **Search**: Quickly find a role using the search feature.
+### **User Actions**  
+1. **Signup**: Register an account using the "Signup" page.  
+2. **Login**: Log in using the credentials created during signup.  
+3. **View Tasks**: Access the tasks assigned by the admin in the "User Dashboard."  
 
-## Folder Structure
+## Folder Structure  
 
 ```
-src/
-├── components/        # Reusable components (e.g., Modal)
-├── pages/             # Pages for Users, Roles, Dashboard
-├── layouts/           # Admin Layout
-├── contexts/          # Context API for state management
-├── mock/              # Mock API functions
-└── App.jsx             # Main app component
-```
+src/  
+├── components/        # Reusable components (e.g., Modal, Filters)  
+├── pages/             # Pages for Login, Signup, Admin and User Dashboards  
+├── layouts/           # Admin Layout for navigation and structure  
+├── contexts/          # Context API for state management  
+├── mock/              # Mock API functions (for localStorage interactions)  
+└── App.jsx            # Main app component  
+```  
 
-## Security Measures
-- Input validation for all forms to prevent invalid data submission.
-- Error handling for user-friendly feedback in case of issues.
-- Client-side security with React best practices.
+## Security Measures  
+- Predefined admin credentials to prevent unauthorized access.  
+- Validation for all input fields to prevent invalid or malicious data.  
+- Error handling to provide user-friendly feedback for any issues.  
 
-## Future Enhancements
-- **Sorting and Filtering**: Add advanced options for sorting users and roles by attributes.
-- **Authentication**: Secure the admin dashboard with user authentication.
-- **Export/Import Data**: Enable exporting and importing users/roles for backup and restore.
+## Future Enhancements  
+- **Sorting and Filtering**: Expand advanced filtering and sorting options for tasks and users.  
+- **Authentication Enhancements**: Add password recovery and account lockout mechanisms.  
+- **Export/Import Data**: Enable data backup and restore functionality.  
+- **Notifications**: Notify users about new tasks or updates via email or in-app alerts.  
 
-## Screenshots
+## Screenshots  
+- **Admin Dashboard**: ![Admin Dashboard](<dashboard.png>)  
+- **User Dashboard**: ![User Dashboard](<user_dashboard.png>)  
+- **Role Management**: ![Role Dashboard](<roles.png>)  
+- **Task Management**: ![Task Dashboard](<task.png>)  
+- **User Management**: ![User Dashboard](<user.png>) 
 
-- **Dashboard**: ![Dashboard](<dashboard.png>)
-- **User Management**: ![User](<user.png>)
-- **Role Management**: ![Role](<roles.png>)
-
-
-## License
-This project is licensed under the MIT License.
+## License  
+This project is licensed under the MIT License.  

@@ -7,17 +7,25 @@ import Header from "../layouts/Header";
 const Users = () => {
   const { users, roles, addUser, updateUser, deleteUser } = useRBAC();
   const [isModalOpen, setModalOpen] = useState(false);
-  const [userForm, setUserForm] = useState({ name: "", role: "", status: "" });
-  const [errors, setErrors] = useState({ name: "", role: "", status: "" });
+  const [userForm, setUserForm] = useState({ name: "", role: "", status: "", password: "" });
+  const [errors, setErrors] = useState({ name: "", role: "", status: "", password: "" });
   const [isEditing, setIsEditing] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
   const navigate = useNavigate();
 
   const validateForm = () => {
-    const newErrors = { name: "", role: "", status: "" };
+    const newErrors = { name: "", role: "", status: "", password: "" };
+
     if (!userForm.name.trim()) newErrors.name = "Name is required.";
     if (!userForm.role) newErrors.role = "Role is required.";
     if (!userForm.status) newErrors.status = "Status is required.";
+    
+    if (!userForm.password.trim()) {
+      newErrors.password = "Password is required.";
+    } else if (userForm.password.length < 4) {
+      newErrors.password = "Password must be at least 4 characters long.";
+    }
+
     setErrors(newErrors);
     return Object.values(newErrors).every((err) => err === "");
   };
@@ -32,7 +40,7 @@ const Users = () => {
       addUser(newUser);
     }
 
-    setUserForm({ name: "", role: "", status: "" });
+    setUserForm({ name: "", role: "", status: "", password: "" });
     setModalOpen(false);
     setIsEditing(false);
   };
@@ -64,8 +72,8 @@ const Users = () => {
         <button
           className="w-full sm:w-auto bg-[#262b34] text-[#c5c3d5] px-4 sm:px-6 py-2 sm:py-3 rounded-lg shadow-lg hover:bg-[#1f2329] transition-all duration-300 mb-4 sm:mb-6"
           onClick={() => {
-            setUserForm({ name: "", role: "", status: "" });
-            setErrors({ name: "", role: "", status: "" });
+            setUserForm({ name: "", role: "", status: "", password: "" });
+            setErrors({ name: "", role: "", status: "", password: "" });
             setModalOpen(true);
           }}
         >
@@ -87,7 +95,7 @@ const Users = () => {
                     className="text-[#c5c3d5] hover:text-[#b4b2c1] transition-colors bg-inherit"
                     onClick={() => {
                       setUserForm(user);
-                      setErrors({ name: "", role: "", status: "" });
+                      setErrors({ name: "", role: "", status: "", password: "" });
                       setModalOpen(true);
                       setIsEditing(true);
                     }}
@@ -184,6 +192,25 @@ const Users = () => {
               </select>
               {errors.status && (
                 <p className="text-red-500 text-sm mb-4 bg-inherit">{errors.status}</p>
+              )}
+
+              {/* Password Input */}
+              <input
+                type="password"
+                className={`w-full mb-2 p-2 sm:p-3 rounded-lg bg-[#333a42] text-[#c5c3d5] border ${
+                  errors.password ? "border-red-500" : "border-[#c5c3d5]"
+                } focus:outline-none focus:ring-2 ${
+                  errors.password ? "focus:ring-red-500" : "focus:ring-[#c5c3d5]"
+                } transition-all duration-200`}
+                placeholder="Password"
+                value={userForm.password}
+                onChange={(e) => {
+                  setUserForm({ ...userForm, password: e.target.value });
+                  if (errors.password) setErrors({ ...errors, password: "" });
+                }}
+              />
+              {errors.password && (
+                <p className="text-red-500 text-sm mb-4 bg-inherit">{errors.password}</p>
               )}
 
               <div className="flex justify-center mt-4 bg-inherit">
