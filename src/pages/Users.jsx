@@ -4,15 +4,30 @@ import { useRBAC } from "../contexts/RBACContext";
 import Modal from "../components/Modal";
 import Header from "../layouts/Header";
 import { motion, AnimatePresence } from "framer-motion";
-
+import { FaEye, FaEyeSlash } from "react-icons/fa";
 const Users = () => {
   const { users, roles, addUser, updateUser, deleteUser } = useRBAC();
   const [isModalOpen, setModalOpen] = useState(false);
-  const [userForm, setUserForm] = useState({ name: "", role: "", status: "", password: "" });
-  const [errors, setErrors] = useState({ name: "", role: "", status: "", password: "" });
+  const [userForm, setUserForm] = useState({
+    name: "",
+    role: "",
+    status: "",
+    password: "",
+  });
+  const [errors, setErrors] = useState({
+    name: "",
+    role: "",
+    status: "",
+    password: "",
+  });
   const [isEditing, setIsEditing] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
   const navigate = useNavigate();
+  const [isPasswordVisible, setIsPasswordVisible] = useState(false);
+
+  const handlePasswordToggle = () => {
+    setIsPasswordVisible(!isPasswordVisible);
+  };
 
   const validateForm = () => {
     const newErrors = { name: "", role: "", status: "", password: "" };
@@ -112,10 +127,15 @@ const Users = () => {
                   </span>
                   <div className="mt-2 sm:mt-0 space-x-4 bg-inherit">
                     <motion.button
-                      className="text-[#c5c3d5] hover:text-[#b4b2c1] transition-colors bg-inherit"
+                      className="text-[#6cfa74] hover:text-[#35ff3f] transition-colors bg-inherit"
                       onClick={() => {
                         setUserForm(user);
-                        setErrors({ name: "", role: "", status: "", password: "" });
+                        setErrors({
+                          name: "",
+                          role: "",
+                          status: "",
+                          password: "",
+                        });
                         setModalOpen(true);
                         setIsEditing(true);
                       }}
@@ -145,7 +165,9 @@ const Users = () => {
               ))}
             </AnimatePresence>
           ) : (
-            <p className="text-[#c5c3d5] text-lg text-center bg-inherit">No users found</p>
+            <p className="text-[#c5c3d5] text-lg text-center bg-inherit">
+              No users found
+            </p>
           )}
         </motion.div>
 
@@ -160,10 +182,10 @@ const Users = () => {
               <h2 className="text-[#c5c3d5] text-lg sm:text-xl mb-4 bg-inherit">
                 {isEditing ? "Edit User" : "Add New User"}
               </h2>
-
+              <label className="text-white">User Name</label>
               <motion.input
                 type="text"
-                className={`w-full mb-2 p-2 sm:p-3 rounded-lg bg-[#333a42] text-[#c5c3d5] border ${
+                className={`w-full mb-4 p-2 sm:p-3 rounded-lg bg-[#333a42] text-[#fff] border ${
                   errors.name ? "border-red-500" : "border-[#c5c3d5]"
                 } focus:outline-none focus:ring-2 ${
                   errors.name ? "focus:ring-red-500" : "focus:ring-[#c5c3d5]"
@@ -178,11 +200,13 @@ const Users = () => {
                 transition={{ duration: 0.3 }}
               />
               {errors.name && (
-                <p className="text-red-500 text-sm mb-4 bg-inherit">{errors.name}</p>
+                <p className="text-red-500 text-sm mb-4 bg-inherit">
+                  {errors.name}
+                </p>
               )}
-
+              <label className="text-white">Select Role</label>
               <motion.select
-                className={`w-full mb-2 p-2 sm:p-3 rounded-lg bg-[#333a42] text-[#c5c3d5] border ${
+                className={`w-full mb-4 p-2 sm:p-3 rounded-lg bg-[#333a42] text-[#fff] border ${
                   errors.role ? "border-red-500" : "border-[#c5c3d5]"
                 } focus:outline-none focus:ring-2 ${
                   errors.role ? "focus:ring-red-500" : "focus:ring-[#c5c3d5]"
@@ -203,11 +227,13 @@ const Users = () => {
                 ))}
               </motion.select>
               {errors.role && (
-                <p className="text-red-500 text-sm mb-4 bg-inherit">{errors.role}</p>
+                <p className="text-red-500 text-sm mb-4 bg-inherit">
+                  {errors.role}
+                </p>
               )}
-
+              <label className="text-white">Select Status</label>
               <motion.select
-                className={`w-full mb-2 p-2 sm:p-3 rounded-lg bg-[#333a42] text-[#c5c3d5] border ${
+                className={`w-full mb-4 p-2 sm:p-3 rounded-lg bg-[#333a42] text-[#fff] border ${
                   errors.status ? "border-red-500" : "border-[#c5c3d5]"
                 } focus:outline-none focus:ring-2 ${
                   errors.status ? "focus:ring-red-500" : "focus:ring-[#c5c3d5]"
@@ -225,27 +251,46 @@ const Users = () => {
                 <option value="Inactive">Inactive</option>
               </motion.select>
               {errors.status && (
-                <p className="text-red-500 text-sm mb-4 bg-inherit">{errors.status}</p>
+                <p className="text-red-500 text-sm mb-4 bg-inherit">
+                  {errors.status}
+                </p>
               )}
-
-              <motion.input
-                type="password"
-                className={`w-full mb-2 p-2 sm:p-3 rounded-lg bg-[#333a42] text-[#c5c3d5] border ${
-                  errors.password ? "border-red-500" : "border-[#c5c3d5]"
-                } focus:outline-none focus:ring-2 ${
-                  errors.password ? "focus:ring-red-500" : "focus:ring-[#c5c3d5]"
-                } transition-all duration-200`}
-                placeholder="Password"
-                value={userForm.password}
-                onChange={(e) => {
-                  setUserForm({ ...userForm, password: e.target.value });
-                  if (errors.password) setErrors({ ...errors, password: "" });
-                }}
-                animate={{ opacity: 1 }}
-                transition={{ duration: 0.3 }}
-              />
+              <label className="text-white">Password</label>
+              <div className="relative">
+                <motion.input
+                  type={isPasswordVisible ? "text" : "password"}
+                  className={`w-full mb-2 p-2 sm:p-3 rounded-lg bg-[#333a42] text-[#fff] border ${
+                    errors.password ? "border-red-500" : "border-[#c5c3d5]"
+                  } focus:outline-none focus:ring-2 ${
+                    errors.password
+                      ? "focus:ring-red-500"
+                      : "focus:ring-[#c5c3d5]"
+                  } transition-all duration-200`}
+                  placeholder="Password"
+                  value={userForm.password}
+                  onChange={(e) => {
+                    setUserForm({ ...userForm, password: e.target.value });
+                    if (errors.password) setErrors({ ...errors, password: "" });
+                  }}
+                  animate={{ opacity: 1 }}
+                  transition={{ duration: 0.3 }}
+                />
+                <button
+                  type="button"
+                  onClick={handlePasswordToggle}
+                  className="absolute right-3 top-1/2 transform -translate-y-1/2 text-[#c5c3d5]"
+                >
+                  {isPasswordVisible ? (
+                    <FaEyeSlash size={20} />
+                  ) : (
+                    <FaEye size={20} />
+                  )}
+                </button>
+              </div>
               {errors.password && (
-                <p className="text-red-500 text-sm mb-4 bg-inherit">{errors.password}</p>
+                <p className="text-red-500 text-sm mb-4 bg-inherit">
+                  {errors.password}
+                </p>
               )}
 
               <div className="flex justify-center mt-4 bg-inherit">

@@ -1,10 +1,12 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
+import zxcvbn from "zxcvbn";
 
 const Signup = () => {
   const [signupData, setSignupData] = useState({ name: "", password: "" });
   const [errors, setErrors] = useState({ name: "", password: "" });
+  const [passwordStrength, setPasswordStrength] = useState(0);
   const navigate = useNavigate();
 
   const handleSignup = () => {
@@ -39,11 +41,38 @@ const Signup = () => {
     if (userExists) {
       alert("Username already exists!");
     } else {
-      const highestId = users.reduce((maxId, user) => Math.max(maxId, user.id), 0);
+      const highestId = users.reduce(
+        (maxId, user) => Math.max(maxId, user.id),
+        0
+      );
       users.push({ ...signupData, status: "Active", id: highestId + 1 });
       localStorage.setItem("users", JSON.stringify(users));
       alert("Signup Successful! Please Login.");
       navigate("/");
+    }
+  };
+
+  const handlePasswordChange = (e) => {
+    const password = e.target.value;
+    setSignupData({ ...signupData, password });
+
+    const result = zxcvbn(password);
+    setPasswordStrength(result.score);
+  };
+
+  const getStrengthColor = () => {
+    switch (passwordStrength) {
+      case 0:
+      case 1:
+        return "bg-red-500";
+      case 2:
+        return "bg-yellow-500";
+      case 3:
+        return "bg-blue-500";
+      case 4:
+        return "bg-green-500";
+      default:
+        return "bg-gray-300";
     }
   };
 
@@ -72,13 +101,17 @@ const Signup = () => {
             <input
               type="text"
               value={signupData.name}
-              onChange={(e) => setSignupData({ ...signupData, name: e.target.value })}
+              onChange={(e) =>
+                setSignupData({ ...signupData, name: e.target.value })
+              }
               className={`w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500 ${
                 errors.name ? "border-red-500" : ""
               }`}
               placeholder="Enter your username"
             />
-            {errors.name && <p className="text-red-500 text-sm">{errors.name}</p>}
+            {errors.name && (
+              <p className="text-red-500 text-sm">{errors.name}</p>
+            )}
           </div>
 
           {/* Password Input */}
@@ -87,13 +120,27 @@ const Signup = () => {
             <input
               type="password"
               value={signupData.password}
-              onChange={(e) => setSignupData({ ...signupData, password: e.target.value })}
-              className={`w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500 ${
+              onChange={handlePasswordChange}
+              className={`w-full mb-2 p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500 ${
                 errors.password ? "border-red-500" : ""
               }`}
               placeholder="Enter your password"
             />
-            {errors.password && <p className="text-red-500 text-sm">{errors.password}</p>}
+            {errors.password && (
+              <p className="text-red-500 text-sm">{errors.password}</p>
+            )}
+
+            <label className="text-white"> Password Strength</label>
+            {/* Password Strength Bar */}
+            <div className="mb-2 h-2 w-full rounded-full bg-gray-300">
+              <div
+                className={`h-full rounded-full ${getStrengthColor()}`}
+                style={{ width: `${(passwordStrength / 4) * 100}%` }}
+              ></div>
+            </div>
+            {passwordStrength < 2 && (
+              <p className="text-red-500 text-sm mt-1">Password is too weak</p>
+            )}
           </div>
 
           {/* Signup Button */}

@@ -11,7 +11,7 @@ function Nitya() {
     <svg
       className="nitya-logo"
       id="logo1"
-      width="338" height="192" viewBox="0 0 338 192"
+      width="333" height="192" viewBox="0 0 333 192"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
     >

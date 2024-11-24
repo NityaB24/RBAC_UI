@@ -117,7 +117,7 @@ const Roles = () => {
                   </div>
                   <div className="flex space-x-2 md:space-x-3 bg-inherit">
                     <button
-                      className="text-[#c5c3d5] hover:text-[#9896a1] transition-colors bg-inherit"
+                      className="text-[#6cfa74] hover:text-[#35ff3f] transition-colors bg-inherit"
                       onClick={() => {
                         setIsEditing(true);
                         setRole(role);
@@ -149,9 +149,10 @@ const Roles = () => {
             <h2 className="text-[#c5c3d5] text-xl md:text-2xl mb-6 bg-inherit">
               {isEditing ? "Edit Role" : "Add New Role"}
             </h2>
+            <label className="text-white" >Role Name</label>
             <input
               type="text"
-              className="w-full p-3 mb-4 rounded-lg bg-[#333a42] text-[#c5c3d5] border border-[#c5c3d5] focus:outline-none focus:ring-2 focus:ring-[#c5c3d5] transition-all duration-200"
+              className="w-full p-3 mb-4 rounded-lg bg-[#333a42] text-[#fff] border border-[#c5c3d5] focus:outline-none focus:ring-2 focus:ring-[#c5c3d5] transition-all duration-200"
               placeholder="Role Name"
               value={role.name}
               onChange={(e) => setRole({ ...role, name: e.target.value })}
@@ -162,7 +163,7 @@ const Roles = () => {
 
             {/* Permissions Section */}
             <div className="mb-6 bg-inherit">
-              <h3 className="text-[#c5c3d5] text-lg mb-4 bg-inherit">Permissions</h3>
+              <h3 className="text-[#fff] text-lg mb-4 bg-inherit">Permissions</h3>
               <div className="grid grid-cols-2 gap-2 bg-inherit">
                 {permissionsList.map((permission) => (
                   <label key={permission} className="flex items-center space-x-2 bg-inherit">
@@ -172,7 +173,7 @@ const Roles = () => {
                       onChange={() => togglePermission(permission)}
                       className="h-4 w-4 text-[#c5c3d5] bg-[#333a42] border border-[#c5c3d5] rounded focus:ring-2 focus:ring-[#c5c3d5]"
                     />
-                    <span className="text-[#c5c3d5] bg-inherit">{permission}</span>
+                    <span className="text-[#fff] bg-inherit">{permission}</span>
                   </label>
                 ))}
               </div>
@@ -180,11 +181,11 @@ const Roles = () => {
 
             {/* Custom Permissions Section */}
             <div className="bg-inherit">
-              <h3 className="text-[#c5c3d5] text-lg mb-4 bg-inherit">Custom Permissions</h3>
+              <h3 className="text-[#fff] text-lg mb-4 bg-inherit">Custom Permissions</h3>
               <div className="flex items-center space-x-2 bg-inherit">
                 <input
                   type="text"
-                  className="flex-1 p-3 rounded-lg bg-[#333a42] text-[#c5c3d5] border border-[#c5c3d5] focus:outline-none focus:ring-2 focus:ring-[#c5c3d5]"
+                  className="flex-1 p-3 rounded-lg bg-[#333a42] text-[#fff] border border-[#c5c3d5] focus:outline-none focus:ring-2 focus:ring-[#c5c3d5]"
                   placeholder="Custom Permission"
                   value={customPermission}
                   onChange={(e) => setCustomPermission(e.target.value)}

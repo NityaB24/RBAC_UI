@@ -163,11 +163,11 @@ const Alltasks = () => {
               <h2 className="text-[#c5c3d5] text-lg sm:text-xl mb-4 bg-inherit">
                 {isEditing ? "Edit Task" : "Add New Task"}
               </h2>
-
+              <label className="text-white">Description</label>
               {/* Description Input */}
               <input
                 type="text"
-                className={`w-full mb-2 p-2 sm:p-3 rounded-lg bg-[#333a42] text-[#c5c3d5] border ${
+                className={`w-full mb-4 p-2 sm:p-3 rounded-lg bg-[#333a42] text-[#fff] border ${
                   errors.description ? "border-red-500" : "border-[#c5c3d5]"
                 } focus:outline-none focus:ring-2 ${
                   errors.description ? "focus:ring-red-500" : "focus:ring-[#c5c3d5]"
@@ -184,9 +184,10 @@ const Alltasks = () => {
               )}
 
               {/* Due Date Input */}
+              <label className="text-white">Select Due Date</label>
               <input
                 type="date"
-                className={`w-full mb-2 p-2 sm:p-3 rounded-lg bg-[#333a42] text-[#c5c3d5] border ${
+                className={`w-full ml-3 mb-4 p-2 sm:p-3 rounded-lg bg-[#333a42] text-[#fff] border ${
                   errors.dueDate ? "border-red-500" : "border-[#c5c3d5]"
                 } focus:outline-none focus:ring-2 ${
                   errors.dueDate ? "focus:ring-red-500" : "focus:ring-[#c5c3d5]"
@@ -202,8 +203,9 @@ const Alltasks = () => {
               )}
 
               {/* Status Selection */}
+              <label className="text-white">Select Status</label>
               <select
-                className={`w-full mb-2 p-2 sm:p-3 rounded-lg bg-[#333a42] text-[#c5c3d5] border ${
+                className={`w-full mb-4 p-2 sm:p-3 rounded-lg bg-[#333a42] text-[#fff] border ${
                   errors.status ? "border-red-500" : "border-[#c5c3d5]"
                 } focus:outline-none focus:ring-2 ${
                   errors.status ? "focus:ring-red-500" : "focus:ring-[#c5c3d5]"
@@ -224,8 +226,9 @@ const Alltasks = () => {
               )}
 
               {/* User Assignment */}
+              <label className="text-white">Assign User</label>
               <select
-                className={`w-full mb-2 p-2 sm:p-3 rounded-lg bg-[#333a42] text-[#c5c3d5] border ${
+                className={`w-full mb-4 p-2 sm:p-3 rounded-lg bg-[#333a42] text-[#fff] border ${
                   errors.userId ? "border-red-500" : "border-[#c5c3d5]"
                 } focus:outline-none focus:ring-2 ${
                   errors.userId ? "focus:ring-red-500" : "focus:ring-[#c5c3d5]"
@@ -250,7 +253,7 @@ const Alltasks = () => {
               <div className="flex justify-center">
                 <button
                   onClick={handleSave}
-                  className="bg-[#5b667b] text-[#c5c3d5] px-6 py-3 rounded-lg shadow-lg hover:bg-[#383f4a] transition-all duration-300"
+                  className="bg-[#c5c3d5] text-[#262b34] px-6 py-3 rounded-lg shadow-lg hover:bg-[#b4b2c1] transition-all duration-300"
                 >
                   Save Task
                 </button>

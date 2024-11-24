@@ -72,7 +72,7 @@ const Tasks = () => {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, ease: "easeInOut" }}
         >
-          Tasks for User {userId}
+          Tasks for User
         </motion.h1>
 
         <motion.button
@@ -112,7 +112,7 @@ const Tasks = () => {
                   </div>
                   <div className="mt-2 sm:mt-0 space-x-4">
                     <motion.button
-                      className="text-[#c5c3d5] hover:text-[#b4b2c1] transition-colors bg-inherit"
+                      className="text-[#6cfa74] hover:text-[#35ff3f] transition-colors bg-inherit"
                       onClick={() => handleUpdate(task)}
                       whileHover={{ scale: 1.1 }}
                       transition={{ duration: 0.3 }}
@@ -149,9 +149,10 @@ const Tasks = () => {
               </h2>
 
               {/* Task Form Fields */}
+              <label className="text-white">Description</label>
               <motion.input
                 type="text"
-                className={`w-full mb-2 p-2 sm:p-3 rounded-lg bg-[#333a42] text-[#c5c3d5] border ${
+                className={`w-full mb-4 p-2 sm:p-3 rounded-lg bg-[#333a42] text-[#fff] border ${
                   errors.description ? "border-red-500" : "border-[#c5c3d5]"
                 } focus:outline-none focus:ring-2 ${
                   errors.description ? "focus:ring-red-500" : "focus:ring-[#c5c3d5]"
@@ -169,9 +170,10 @@ const Tasks = () => {
                 <p className="text-red-500 text-sm mb-4 bg-inherit">{errors.description}</p>
               )}
 
+<label className="text-white">Select Due Date</label>
               <motion.input
                 type="date"
-                className={`w-full mb-2 p-2 sm:p-3 rounded-lg bg-[#333a42] text-[#c5c3d5] border ${
+                className={`w-full ml-4 mb-4 p-2 sm:p-3 rounded-lg bg-[#333a42] text-[#c5c3d5] border ${
                   errors.dueDate ? "border-red-500" : "border-[#c5c3d5]"
                 } focus:outline-none focus:ring-2 ${
                   errors.dueDate ? "focus:ring-red-500" : "focus:ring-[#c5c3d5]"
@@ -188,8 +190,9 @@ const Tasks = () => {
                 <p className="text-red-500 text-sm mb-4 bg-inherit">{errors.dueDate}</p>
               )}
 
+<label className="text-white">Select Status</label>
               <motion.select
-                className={`w-full mb-2 p-2 sm:p-3 rounded-lg bg-[#333a42] text-[#c5c3d5] border ${
+                className={`w-full mb-4 p-2 sm:p-3 rounded-lg bg-[#333a42] text-[#c5c3d5] border ${
                   errors.status ? "border-red-500" : "border-[#c5c3d5]"
                 } focus:outline-none focus:ring-2 ${
                   errors.status ? "focus:ring-red-500" : "focus:ring-[#c5c3d5]"
@@ -209,8 +212,9 @@ const Tasks = () => {
                 <p className="text-red-500 text-sm mb-4 bg-inherit">{errors.status}</p>
               )}
 
+<label className="text-white">Comments</label>
               <motion.textarea
-                className="w-full mb-2 p-2 sm:p-3 rounded-lg bg-[#333a42] text-[#c5c3d5] border border-[#c5c3d5] focus:outline-none focus:ring-2 focus:ring-[#c5c3d5] transition-all duration-200"
+                className="w-full mb-4 p-2 sm:p-3 rounded-lg bg-[#333a42] text-[#c5c3d5] border border-[#c5c3d5] focus:outline-none focus:ring-2 focus:ring-[#c5c3d5] transition-all duration-200"
                 rows="4"
                 placeholder="Comments"
                 value={taskForm.comments}
