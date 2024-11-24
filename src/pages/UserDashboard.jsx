@@ -85,7 +85,7 @@ const UserDashboard = () => {
                 ))}
               </ul>
             ) : (
-              <p className="text-gray-500">No permissions assigned</p>
+              <p className="text-[#dcdbdb]">No permissions assigned</p>
             )}
           </div>
 
@@ -121,7 +121,7 @@ const UserDashboard = () => {
                 ))}
               </ul>
             ) : (
-              <p className="text-gray-500">No tasks assigned</p>
+              <p className="text-[#dcdbdb]">No tasks assigned</p>
             )}
           </div>
         </div>
