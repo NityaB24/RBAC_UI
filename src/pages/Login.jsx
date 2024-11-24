@@ -152,20 +152,7 @@ const Login = () => {
             Login
           </motion.button>
 
-          {/* Create account link */}
-          {role === "user" && (
-            <div className="mt-6 text-center">
-              <p className="text-sm text-indigo-400">
-                Don't have an account?{" "}
-                <button
-                  onClick={() => navigate("/signup")}
-                  className="text-white hover:text-indigo-500 font-semibold"
-                >
-                  Signup
-                </button>
-              </p>
-            </div>
-          )}
+        
         </div>
       </motion.div>
     </motion.div>

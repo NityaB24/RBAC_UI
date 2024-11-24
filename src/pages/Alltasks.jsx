@@ -133,7 +133,7 @@ const Alltasks = () => {
                 </span>
                 <div className="mt-2 sm:mt-0 space-x-4 bg-inherit">
                   <button
-                    className="text-[#c5c3d5] hover:text-[#b4b2c1] transition-colors bg-inherit"
+                    className="text-[#6cfa74] hover:text-[#35ff3f] transition-colors bg-inherit"
                     onClick={() => {
                       setTaskForm(task);
                       setErrors({ description: "", dueDate: "", status: "", userId: "" });
@@ -187,7 +187,7 @@ const Alltasks = () => {
               <label className="text-white">Select Due Date</label>
               <input
                 type="date"
-                className={`w-full ml-3 mb-4 p-2 sm:p-3 rounded-lg bg-[#333a42] text-[#fff] border ${
+                className={`w-full mb-4 p-2 sm:p-3 rounded-lg bg-[#333a42] text-[#fff] border ${
                   errors.dueDate ? "border-red-500" : "border-[#c5c3d5]"
                 } focus:outline-none focus:ring-2 ${
                   errors.dueDate ? "focus:ring-red-500" : "focus:ring-[#c5c3d5]"

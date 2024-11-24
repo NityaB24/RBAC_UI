@@ -5,11 +5,12 @@
     left: 50%;
     transform: translate(-50%, -50%);
     transition: fill 1s ease-in-out, transform 0.8s ease-in-out;
+    z-index: 10;
 }
 
 #logo1.complete {
     fill: #262b34; 
-    transform: translate(-50%, -50%) scale(1.1);
+    transform: translate(-50%, -50%) scale(1);
 }
 
 #logo1.complete path {
@@ -35,6 +36,12 @@
 }
 
 #logo1 path:nth-child(4) {
+    stroke-dasharray: 1033;
+    stroke-dashoffset: 1033;
+    animation: draw 5s ease forwards;
+}
+
+#logo1 path:nth-child(5) {
     stroke-dasharray: 1033;
     stroke-dashoffset: 1033;
     animation: draw 5s ease forwards;

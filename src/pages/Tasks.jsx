@@ -7,14 +7,25 @@ import { motion, AnimatePresence } from "framer-motion";
 const Tasks = () => {
   const { userId } = useParams();
   const [tasks, setTasks] = useState([]);
-  const [taskForm, setTaskForm] = useState({ description: "", dueDate: "", comments: "", status: "Pending" });
-  const [errors, setErrors] = useState({ description: "", dueDate: "", status: "" });
+  const [taskForm, setTaskForm] = useState({
+    description: "",
+    dueDate: "",
+    comments: "",
+    status: "Pending",
+  });
+  const [errors, setErrors] = useState({
+    description: "",
+    dueDate: "",
+    status: "",
+  });
   const [isEditing, setIsEditing] = useState(false);
   const [isModalOpen, setModalOpen] = useState(false);
 
   const updateTasksForUser = () => {
     const storedTasks = JSON.parse(localStorage.getItem("tasks")) || [];
-    const filteredTasks = storedTasks.filter(task => task.userId === parseInt(userId));
+    const filteredTasks = storedTasks.filter(
+      (task) => task.userId === parseInt(userId)
+    );
     setTasks(filteredTasks);
   };
 
@@ -24,7 +35,8 @@ const Tasks = () => {
 
   const validateForm = () => {
     const newErrors = { description: "", dueDate: "", status: "" };
-    if (!taskForm.description.trim()) newErrors.description = "Description is required.";
+    if (!taskForm.description.trim())
+      newErrors.description = "Description is required.";
     if (!taskForm.dueDate) newErrors.dueDate = "Due Date is required.";
     if (!taskForm.status) newErrors.status = "Status is required.";
     setErrors(newErrors);
@@ -45,7 +57,12 @@ const Tasks = () => {
 
     updateTasksForUser();
 
-    setTaskForm({ description: "", dueDate: "", comments: "", status: "Pending" });
+    setTaskForm({
+      description: "",
+      dueDate: "",
+      comments: "",
+      status: "Pending",
+    });
     setModalOpen(false);
   };
 
@@ -57,7 +74,7 @@ const Tasks = () => {
 
   const handleDelete = (taskId) => {
     const storedTasks = JSON.parse(localStorage.getItem("tasks")) || [];
-    const updatedTasks = storedTasks.filter(task => task.id !== taskId);
+    const updatedTasks = storedTasks.filter((task) => task.id !== taskId);
     localStorage.setItem("tasks", JSON.stringify(updatedTasks));
     updateTasksForUser();
   };
@@ -79,7 +96,12 @@ const Tasks = () => {
           className="w-full sm:w-auto bg-[#262b34] text-[#c5c3d5] px-4 sm:px-6 py-2 sm:py-3 rounded-lg shadow-lg hover:bg-[#1f2329] transition-all duration-300 mb-4 sm:mb-6"
           onClick={() => {
             setIsEditing(false);
-            setTaskForm({ description: "", dueDate: "", comments: "", status: "Pending" });
+            setTaskForm({
+              description: "",
+              dueDate: "",
+              comments: "",
+              status: "Pending",
+            });
             setModalOpen(true);
           }}
           whileHover={{ scale: 1.05 }}
@@ -107,7 +129,9 @@ const Tasks = () => {
                 >
                   <div className="text-[#c5c3d5]">
                     <h3 className="font-medium">{task.description}</h3>
-                    <p className="text-sm">{task.dueDate} - {task.status}</p>
+                    <p className="text-sm">
+                      {task.dueDate} - {task.status}
+                    </p>
                     <p className="text-xs">{task.comments}</p>
                   </div>
                   <div className="mt-2 sm:mt-0 space-x-4">
@@ -131,7 +155,9 @@ const Tasks = () => {
                 </motion.div>
               ))
             ) : (
-              <p className="text-[#c5c3d5] text-lg text-center bg-inherit">No tasks found</p>
+              <p className="text-[#c5c3d5] text-lg text-center bg-inherit">
+                No tasks found
+              </p>
             )}
           </AnimatePresence>
         </motion.div>
@@ -155,25 +181,30 @@ const Tasks = () => {
                 className={`w-full mb-4 p-2 sm:p-3 rounded-lg bg-[#333a42] text-[#fff] border ${
                   errors.description ? "border-red-500" : "border-[#c5c3d5]"
                 } focus:outline-none focus:ring-2 ${
-                  errors.description ? "focus:ring-red-500" : "focus:ring-[#c5c3d5]"
+                  errors.description
+                    ? "focus:ring-red-500"
+                    : "focus:ring-[#c5c3d5]"
                 } transition-all duration-200`}
                 placeholder="Task Description"
                 value={taskForm.description}
                 onChange={(e) => {
                   setTaskForm({ ...taskForm, description: e.target.value });
-                  if (errors.description) setErrors({ ...errors, description: "" });
+                  if (errors.description)
+                    setErrors({ ...errors, description: "" });
                 }}
                 animate={{ opacity: 1 }}
                 transition={{ duration: 0.3 }}
               />
               {errors.description && (
-                <p className="text-red-500 text-sm mb-4 bg-inherit">{errors.description}</p>
+                <p className="text-red-500 text-sm mb-4 bg-inherit">
+                  {errors.description}
+                </p>
               )}
 
-<label className="text-white">Select Due Date</label>
+              <label className="text-white">Select Due Date</label>
               <motion.input
                 type="date"
-                className={`w-full ml-4 mb-4 p-2 sm:p-3 rounded-lg bg-[#333a42] text-[#c5c3d5] border ${
+                className={`w-full  mb-4 p-2 sm:p-3 rounded-lg bg-[#333a42] text-[#c5c3d5] border ${
                   errors.dueDate ? "border-red-500" : "border-[#c5c3d5]"
                 } focus:outline-none focus:ring-2 ${
                   errors.dueDate ? "focus:ring-red-500" : "focus:ring-[#c5c3d5]"
@@ -187,10 +218,12 @@ const Tasks = () => {
                 transition={{ duration: 0.3 }}
               />
               {errors.dueDate && (
-                <p className="text-red-500 text-sm mb-4 bg-inherit">{errors.dueDate}</p>
+                <p className="text-red-500 text-sm mb-4 bg-inherit">
+                  {errors.dueDate}
+                </p>
               )}
 
-<label className="text-white">Select Status</label>
+              <label className="text-white">Select Status</label>
               <motion.select
                 className={`w-full mb-4 p-2 sm:p-3 rounded-lg bg-[#333a42] text-[#c5c3d5] border ${
                   errors.status ? "border-red-500" : "border-[#c5c3d5]"
@@ -209,16 +242,20 @@ const Tasks = () => {
                 <option value="Completed">Completed</option>
               </motion.select>
               {errors.status && (
-                <p className="text-red-500 text-sm mb-4 bg-inherit">{errors.status}</p>
+                <p className="text-red-500 text-sm mb-4 bg-inherit">
+                  {errors.status}
+                </p>
               )}
 
-<label className="text-white">Comments</label>
+              <label className="text-white">Comments</label>
               <motion.textarea
                 className="w-full mb-4 p-2 sm:p-3 rounded-lg bg-[#333a42] text-[#c5c3d5] border border-[#c5c3d5] focus:outline-none focus:ring-2 focus:ring-[#c5c3d5] transition-all duration-200"
                 rows="4"
                 placeholder="Comments"
                 value={taskForm.comments}
-                onChange={(e) => setTaskForm({ ...taskForm, comments: e.target.value })}
+                onChange={(e) =>
+                  setTaskForm({ ...taskForm, comments: e.target.value })
+                }
               />
 
               <div className="flex justify-center mt-4 bg-inherit">

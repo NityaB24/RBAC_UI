@@ -11,7 +11,7 @@ const UserDashboard = () => {
 
   const handleLogout = () => {
     if (loggedInUser && loggedInUser.name) {
-      const userIndex = users.findIndex(user => user.name === loggedInUser.name);
+      const userIndex = users.findIndex((user) => user.name === loggedInUser.name);
 
       if (userIndex !== -1) {
         users[userIndex].status = "Inactive";
@@ -23,13 +23,12 @@ const UserDashboard = () => {
     navigate("/");
   };
 
-  const currentUser = users.find(user => user.name === loggedInUser.name);
+  const currentUser = users.find((user) => user.name === loggedInUser.name);
 
-  const userRole = currentUser ? currentUser.role : "No role assigned";
-  const currentRole = roles.find(role => role.name === userRole);
+  const userRole = currentUser ? currentUser.role : null;
+  const currentRole = roles.find((role) => role.name === userRole);
   const userPermissions = currentRole ? currentRole.permissions : [];
-
-  const [userTasks, setUserTasks] = useState(tasks.filter(task => task.userId === currentUser?.id));
+  const [userTasks, setUserTasks] = useState(tasks.filter((task) => task.userId === currentUser?.id));
 
   const handleTaskStatusChange = (taskId) => {
     const updatedTasks = [...userTasks];
@@ -38,11 +37,11 @@ const UserDashboard = () => {
 
     if (task && task.status === "Pending") {
       task.status = "Completed";
-      task.completedDate = new Date().toLocaleDateString(); 
+      task.completedDate = new Date().toLocaleDateString();
       updatedTasks[taskIndex] = task;
 
       setUserTasks(updatedTasks);
-      localStorage.setItem("tasks", JSON.stringify(updatedTasks)); 
+      localStorage.setItem("tasks", JSON.stringify(updatedTasks));
     }
   };
 
@@ -68,9 +67,15 @@ const UserDashboard = () => {
           {/* Role and Permissions Section */}
           <div className="bg-gradient-to-br from-[#9bb0d7] to-[#3c4454] p-6 rounded-xl shadow-md hover:shadow-lg transition-all">
             <h2 className="text-2xl font-semibold text-[#181b21] mb-4">Your Role</h2>
-            <p className="text-lg bg-[#ffffff] text-[#135950] font-medium rounded-md px-4 py-2 shadow-sm">
-              {userRole}
-            </p>
+            {userRole ? (
+              <p className="text-lg bg-[#ffffff] text-[#000] font-medium rounded-md px-4 py-2 shadow-sm">
+                {userRole}
+              </p>
+            ) : (
+              <div className="bg-red-100 text-red-600 font-semibold rounded-md px-4 py-2 shadow-md">
+                Role - Not assigned yet!
+              </div>
+            )}
 
             <h3 className="text-xl font-semibold text-[#181b21] mt-6 mb-4">Your Permissions</h3>
             {userPermissions.length > 0 ? (
@@ -85,7 +90,9 @@ const UserDashboard = () => {
                 ))}
               </ul>
             ) : (
-              <p className="text-[#dcdbdb]">No permissions assigned</p>
+              <div className="bg-yellow-100 text-yellow-600 font-semibold rounded-md px-4 py-2 shadow-md">
+                Permissions - Not assigned yet!
+              </div>
             )}
           </div>
 
@@ -121,7 +128,9 @@ const UserDashboard = () => {
                 ))}
               </ul>
             ) : (
-              <p className="text-[#dcdbdb]">No tasks assigned</p>
+              <div className="bg-blue-100 text-blue-600 font-semibold rounded-md px-4 py-2 shadow-md">
+                Tasks - Not assigned yet!
+              </div>
             )}
           </div>
         </div>

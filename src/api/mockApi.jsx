@@ -1,6 +1,6 @@
 let mockUsers = [
-  { id: 1, name: "John Doe", role: "Admin", status: "Active" },
-  { id: 2, name: "Jane Smith", role: "Editor", status: "Inactive" },
+  { id: 1, name: "John Doe", role: "Admin", status: "Active",password:"John@123" },
+  { id: 2, name: "Jane Smith", role: "Editor", status: "Inactive",password:"Jane@123" },
 ];
 
 let mockRoles = [
