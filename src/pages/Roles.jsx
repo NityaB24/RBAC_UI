@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useRBAC } from "../contexts/RBACContext";
 import Modal from "../components/Modal";
 import Header from "../layouts/Header";
+import { motion } from "framer-motion";
 
 const Roles = () => {
   const { roles, addRole, updateRole, deleteRole } = useRBAC();
@@ -62,7 +63,6 @@ const Roles = () => {
     }
   };
 
-
   const filteredRoles = roles.filter((role) => {
     const searchLower = searchQuery.toLowerCase();
     return (
@@ -71,41 +71,83 @@ const Roles = () => {
     );
   });
 
+  const containerVariants = {
+    hidden: { opacity: 0, scale: 0.95 },
+    visible: {
+      opacity: 1,
+      scale: 1,
+      transition: {
+        type: "spring",
+        stiffness: 50,
+        damping: 15,
+        staggerChildren: 0.1,
+      },
+    },
+  };
+
+  const itemVariants = {
+    hidden: { opacity: 0, y: 20 },
+    visible: { opacity: 1, y: 0 },
+  };
+
+  const modalVariants = {
+    hidden: { opacity: 0, y: "-100vh" },
+    visible: { opacity: 1, y: 0, transition: { type: "spring", damping: 20 } },
+    exit: { opacity: 0, y: "-100vh" },
+  };
+
   return (
     <>
-    <Header/>
-    <div className="p-4 sm:p-6 md:p-8 bg-[#c5c3d5] min-h-screen">
-      <h1 className="text-2xl md:text-3xl font-semibold text-[#262b34] mb-6 md:mb-8">
-        Roles Management
-      </h1>
-
-      {/* Search Input */}
-      <input
-        type="text"
-        className="w-full p-3 mb-6 rounded-lg bg-[#333a42] text-[#c5c3d5] border border-[#c5c3d5] focus:outline-none focus:ring-2 focus:ring-[#c5c3d5] transition-all duration-200"
-        placeholder="Search roles by name or permission"
-        value={searchQuery}
-        onChange={(e) => setSearchQuery(e.target.value)}
-      />
-
-      {/* Add Role Button */}
-      <button
-        className="w-full sm:w-auto bg-[#262b34] text-[#c5c3d5] px-4 sm:px-6 py-2 sm:py-3 rounded-lg shadow-lg hover:bg-[#1f2329] transition-all duration-300 mb-4 sm:mb-6"
-        onClick={() => {
-          setIsEditing(false);
-          setRole({ name: "", permissions: [] });
-          setModalOpen(true);
-        }}
+      <Header />
+      <motion.div
+        className="p-4 sm:p-6 md:p-8 bg-[#c5c3d5] min-h-screen"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 0.5 }}
       >
-        Add Role
-      </button>
-      <div className="bg-[#1f2329] p-4 md:p-6 rounded-xl shadow-xl">
+        <h1 className="text-2xl md:text-3xl font-semibold text-[#262b34] mb-6 md:mb-8">
+          Roles Management
+        </h1>
+
+        {/* Search Input */}
+        <motion.input
+          type="text"
+          className="w-full p-3 mb-6 rounded-lg bg-[#333a42] text-[#c5c3d5] border border-[#c5c3d5] focus:outline-none focus:ring-2 focus:ring-[#c5c3d5] transition-all duration-200"
+          placeholder="Search roles by name or permission"
+          value={searchQuery}
+          onChange={(e) => setSearchQuery(e.target.value)}
+          initial={{ opacity: 0, x: -50 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ duration: 0.5 }}
+        />
+
+        {/* Add Role Button */}
+        <motion.button
+          className="w-full sm:w-auto bg-[#262b34] text-[#c5c3d5] px-4 sm:px-6 py-2 sm:py-3 rounded-lg shadow-lg hover:bg-[#1f2329] transition-all duration-300 mb-4 sm:mb-6"
+          onClick={() => {
+            setIsEditing(false);
+            setRole({ name: "", permissions: [] });
+            setModalOpen(true);
+          }}
+          whileHover={{ scale: 1.05 }}
+          whileTap={{ scale: 0.95 }}
+        >
+          Add Role
+        </motion.button>
+
+        <motion.div
+          className="bg-[#1f2329] p-4 md:p-6 rounded-xl shadow-xl"
+          variants={containerVariants}
+          initial="hidden"
+          animate="visible"
+        >
           {filteredRoles.length > 0 ? (
             <div className="grid gap-4 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 bg-inherit">
               {filteredRoles.map((role) => (
-                <div
+                <motion.div
                   key={role.id}
                   className="p-3 bg-[#333a42] rounded-lg flex justify-between items-center shadow transition-all duration-300 ease-in-out transform hover:scale-105 hover:shadow-xl"
+                  variants={itemVariants}
                 >
                   <div className="bg-inherit">
                     <h2 className="text-base md:text-lg font-semibold text-[#c5c3d5] bg-inherit">
@@ -133,7 +175,7 @@ const Roles = () => {
                       Delete
                     </button>
                   </div>
-                </div>
+                </motion.div>
               ))}
             </div>
           ) : (
@@ -141,82 +183,100 @@ const Roles = () => {
               No roles found
             </p>
           )}
-        </div>
+        </motion.div>
 
-      {isModalOpen && (
-        <Modal onClose={() => setModalOpen(false)}>
-          <div className="bg-[#262b34] p-6 sm:p-8 rounded-lg shadow-2xl w-full max-w-[95%] md:max-w-md">
-            <h2 className="text-[#c5c3d5] text-xl md:text-2xl mb-6 bg-inherit">
-              {isEditing ? "Edit Role" : "Add New Role"}
-            </h2>
-            <label className="text-white" >Role Name</label>
-            <input
-              type="text"
-              className="w-full p-3 mb-4 rounded-lg bg-[#333a42] text-[#fff] border border-[#c5c3d5] focus:outline-none focus:ring-2 focus:ring-[#c5c3d5] transition-all duration-200"
-              placeholder="Role Name"
-              value={role.name}
-              onChange={(e) => setRole({ ...role, name: e.target.value })}
-            />
-            {error && (
-              <div className="text-red-500 text-sm mb-2 bg-inherit">{error}</div>
-            )}
+        {isModalOpen && (
+          <Modal onClose={() => setModalOpen(false)}>
+            <motion.div
+              className="bg-[#262b34] p-6 sm:p-8 rounded-lg shadow-2xl w-full max-w-[95%] md:max-w-md"
+              variants={modalVariants}
+              initial="hidden"
+              animate="visible"
+              exit="exit"
+            >
+              <h2 className="text-[#c5c3d5] text-xl md:text-2xl mb-6 bg-inherit">
+                {isEditing ? "Edit Role" : "Add New Role"}
+              </h2>
 
-            {/* Permissions Section */}
-            <div className="mb-6 bg-inherit">
-              <h3 className="text-[#fff] text-lg mb-4 bg-inherit">Permissions</h3>
-              <div className="grid grid-cols-2 gap-2 bg-inherit">
-                {permissionsList.map((permission) => (
-                  <label key={permission} className="flex items-center space-x-2 bg-inherit">
-                    <input
-                      type="checkbox"
-                      checked={role.permissions.includes(permission)}
-                      onChange={() => togglePermission(permission)}
-                      className="h-4 w-4 text-[#c5c3d5] bg-[#333a42] border border-[#c5c3d5] rounded focus:ring-2 focus:ring-[#c5c3d5]"
-                    />
-                    <span className="text-[#fff] bg-inherit">{permission}</span>
-                  </label>
-                ))}
+              <label className="text-white">Role Name</label>
+              <input
+                type="text"
+                className="w-full p-3 mb-4 rounded-lg bg-[#333a42] text-[#fff] border border-[#c5c3d5] focus:outline-none focus:ring-2 focus:ring-[#c5c3d5] transition-all duration-200"
+                placeholder="Role Name"
+                value={role.name}
+                onChange={(e) => setRole({ ...role, name: e.target.value })}
+              />
+              {error && (
+                <div className="text-red-500 text-sm mb-2 bg-inherit">
+                  {error}
+                </div>
+              )}
+
+              {/* Permissions Section */}
+              <div className="mb-6 bg-inherit">
+                <h3 className="text-[#fff] text-lg mb-4 bg-inherit">
+                  Permissions
+                </h3>
+                <div className="grid grid-cols-2 gap-2 bg-inherit">
+                  {permissionsList.map((permission) => (
+                    <label
+                      key={permission}
+                      className="flex items-center space-x-2 bg-inherit"
+                    >
+                      <input
+                        type="checkbox"
+                        checked={role.permissions.includes(permission)}
+                        onChange={() => togglePermission(permission)}
+                        className="h-4 w-4 text-[#c5c3d5] bg-[#333a42] border border-[#c5c3d5] rounded focus:ring-2 focus:ring-[#c5c3d5]"
+                      />
+                      <span className="text-[#fff] bg-inherit">
+                        {permission}
+                      </span>
+                    </label>
+                  ))}
+                </div>
               </div>
-            </div>
 
-            {/* Custom Permissions Section */}
-            <div className="bg-inherit">
-              <h3 className="text-[#fff] text-lg mb-4 bg-inherit">Custom Permissions</h3>
-              <div className="flex items-center space-x-2 bg-inherit">
-                <input
-                  type="text"
-                  className="flex-1 p-3 rounded-lg bg-[#333a42] text-[#fff] border border-[#c5c3d5] focus:outline-none focus:ring-2 focus:ring-[#c5c3d5]"
-                  placeholder="Custom Permission"
-                  value={customPermission}
-                  onChange={(e) => setCustomPermission(e.target.value)}
-                />
+              {/* Custom Permissions Section */}
+              <div className="bg-inherit">
+                <h3 className="text-[#fff] text-lg mb-4 bg-inherit">
+                  Custom Permissions
+                </h3>
+                <div className="flex items-center space-x-2 bg-inherit">
+                  <input
+                    type="text"
+                    className="flex-1 p-3 rounded-lg bg-[#333a42] text-[#fff] border border-[#c5c3d5] focus:outline-none focus:ring-2 focus:ring-[#c5c3d5]"
+                    placeholder="Custom Permission"
+                    value={customPermission}
+                    onChange={(e) => setCustomPermission(e.target.value)}
+                  />
+                  <button
+                    className="bg-[#c5c3d5] text-[#262b34] px-4 py-2 rounded-lg hover:bg-[#b4b2c1] transition-all"
+                    onClick={handleAddCustomPermission}
+                  >
+                    Add
+                  </button>
+                </div>
+              </div>
+
+              <div className="mt-6 flex justify-center bg-inherit">
                 <button
-                  className="bg-[#c5c3d5] text-[#262b34] px-4 py-2 rounded-lg hover:bg-[#b4b2c1] transition-all"
-                  onClick={handleAddCustomPermission}
+                  className="bg-[#c5c3d5] text-[#262b34] px-6 py-3 rounded-lg hover:bg-[#b4b2c1] transition-all mr-2"
+                  onClick={handleSaveRole}
                 >
-                  Add
+                  Save
+                </button>
+                <button
+                  className="bg-red-500 text-white px-6 py-3 rounded-lg hover:bg-red-400 transition-all"
+                  onClick={() => setModalOpen(false)}
+                >
+                  Cancel
                 </button>
               </div>
-            </div>
-
-            <div className="mt-6 flex justify-center bg-inherit">
-              <button
-                className="bg-[#c5c3d5] text-[#262b34] px-6 py-3 rounded-lg hover:bg-[#b4b2c1] transition-all mr-2"
-                onClick={handleSaveRole}
-              >
-                Save
-              </button>
-              <button
-                className="bg-red-500 text-white px-6 py-3 rounded-lg hover:bg-red-400 transition-all"
-                onClick={() => setModalOpen(false)}
-              >
-                Cancel
-              </button>
-            </div>
-          </div>
-        </Modal>
-      )}
-    </div>
+            </motion.div>
+          </Modal>
+        )}
+      </motion.div>
     </>
   );
 };

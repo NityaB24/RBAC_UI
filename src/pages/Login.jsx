@@ -90,7 +90,7 @@ const Login = () => {
             <input
               type="text"
               value={loginData.name}
-              onChange={(e) => setLoginData({ ...loginData, name: e.target.value })}
+              onChange={(e) => setLoginData({ ...loginData, name: e.target.value.trim() })}
               className={`w-full p-3 border border-gray-300 rounded-md bg-[#333642] text-white focus:outline-none focus:ring-2 focus:ring-indigo-500 ${
                 errors.name ? "border-red-500" : ""
               }`}
@@ -109,7 +109,7 @@ const Login = () => {
             <input
               type="password"
               value={loginData.password}
-              onChange={(e) => setLoginData({ ...loginData, password: e.target.value })}
+              onChange={(e) => setLoginData({ ...loginData, password: e.target.value.trim() })}
               className={`w-full p-3 border border-gray-300 rounded-md bg-[#333642] text-white focus:outline-none focus:ring-2 focus:ring-indigo-500 ${
                 errors.password ? "border-red-500" : ""
               }`}

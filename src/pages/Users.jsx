@@ -24,6 +24,11 @@ const Users = () => {
   const [searchQuery, setSearchQuery] = useState("");
   const navigate = useNavigate();
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
+  const modalVariants = {
+    hidden: { opacity: 0, y: "-100vh" },
+    visible: { opacity: 1, y: 0, transition: { type: "spring", damping: 20 } },
+    exit: { opacity: 0, y: "-100vh" },
+  };
 
   const handlePasswordToggle = () => {
     setIsPasswordVisible(!isPasswordVisible);
@@ -175,9 +180,10 @@ const Users = () => {
           <Modal onClose={() => setModalOpen(false)}>
             <motion.div
               className="bg-[#262b34] p-6 sm:p-8 rounded-lg shadow-2xl w-full sm:w-96"
-              initial={{ opacity: 0, scale: 0.9 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 0.3 }}
+              variants={modalVariants}
+              initial="hidden"
+              animate="visible"
+              exit="exit"
             >
               <h2 className="text-[#c5c3d5] text-lg sm:text-xl mb-4 bg-inherit">
                 {isEditing ? "Edit User" : "Add New User"}

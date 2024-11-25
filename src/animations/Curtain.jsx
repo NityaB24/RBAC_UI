@@ -4,6 +4,7 @@ import '../LoadingPage/Logo/loader_styles.css';
 import Users from './Users';
 import Roles from './Roles';
 import Tasks from './Tasks';
+import Nitya from '../LoadingPage/Logo/Nitya';
 
 function Curtain({ text, onTransitionComplete }) {
   useEffect(() => {
@@ -38,12 +39,12 @@ function Curtain({ text, onTransitionComplete }) {
 
   const renderComponent = () => {
     switch (text) {
-      case 'Users':
-        return <Users />;
-      case 'Roles':
-        return <Roles />;
-      case 'Tasks':
-        return <Tasks />;
+      case 'admin':
+        return <Nitya />;
+      // case 'Roles':
+      //   return <Roles />;
+      // case 'Tasks':
+      //   return <Tasks />;
       default:
         return <div>Invalid Text</div>; 
     }

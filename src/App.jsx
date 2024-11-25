@@ -10,38 +10,6 @@ import PrivateRoute from "./components/PrivateRoute";
 import Tasks from "./pages/Tasks";
 import Alltasks from "./pages/Alltasks";
 import Loader from "./LoadingPage/Logo/Loader";
-import Curtain from "./animations/Curtain";
-
-const LoaderWrapper = () => {
-  const location = useLocation();
-  const [loading, setLoading] = useState(false);
-  const [curtainText, setCurtainText] = useState('');
-
-  useEffect(() => {
-    const loaderPaths = ["/users", "/roles", "/tasks"];
-    const routeText = {
-      '/users': 'Users',
-      '/roles': 'Roles',
-      '/tasks': 'Tasks',
-    };
-
-    if (loaderPaths.includes(location.pathname)) {
-      setLoading(true);
-      setCurtainText(routeText[location.pathname]);
-
-      const timer = setTimeout(() => {
-        setLoading(false);
-        sessionStorage.setItem("curtainDisplayed", "true");
-      }, 2200);
-
-      return () => clearTimeout(timer);
-    }
-
-    setLoading(false);
-  }, [location]);
-
-  return loading ? <Curtain text={curtainText} /> : null;
-};
 
 const App = () => {
   const [loading, setLoading] = useState(
@@ -64,7 +32,6 @@ const App = () => {
   }
   return (
     <BrowserRouter>
-      <LoaderWrapper /> 
       <Routes>
         <Route path="/" element={<Login />} />
         <Route path="/signup" element={<Signup />} />
